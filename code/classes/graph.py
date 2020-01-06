@@ -3,10 +3,10 @@ from .node import Node
 
 
 class Graph():
-    def __init__(self, nodes, neighbours):
-        self.nodes = self.load_nodes(nodes)
+    def __init__(self, nodes_file, neighbours_file):
+        self.nodes = self.load_nodes(nodes_file)
+        self.load_neighbours(neighbours_file)
 
-    @staticmethod
     def load_nodes(self, node_file):
         nodes = {}
         with open(node_file, 'r') as in_file:
