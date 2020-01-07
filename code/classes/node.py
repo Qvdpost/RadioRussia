@@ -17,3 +17,6 @@ class Node():
 
     def set_value(self, value):
         self.value = value
+
+    def __repr__(self):
+        return self.id

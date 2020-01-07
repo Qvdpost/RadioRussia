@@ -1,5 +1,5 @@
 import csv
-from node import Node
+from .node import Node
 
 
 class Graph():
@@ -22,8 +22,9 @@ class Graph():
             reader = csv.DictReader(in_file)
 
             for row in reader:
-                neighbours = row['neighbours'].split(',')
+                neighbours = [neighbour.strip('[] ') for neighbour in row['neighbours'].split(',') if neighbour.strip('[] ') != ""]
                 node_id = row['state']
+
                 for neighbour in neighbours:
                     neighbour = self.nodes[neighbour]
                     self.nodes[node_id].add_neighbour(neighbour)
