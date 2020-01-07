@@ -1,5 +1,5 @@
 import csv
-from .node import Node
+from node import Node
 
 
 class Graph():
@@ -22,8 +22,20 @@ class Graph():
             reader = csv.DictReader(in_file)
 
             for row in reader:
-                neighbours = eval(row['neighbours'])
+                neighbours = row['neighbours'].split(',')
                 node_id = row['state']
                 for neighbour in neighbours:
                     neighbour = self.nodes[neighbour]
                     self.nodes[node_id].add_neighbour(neighbour)
+
+    def get_violations(self):
+        violations = []
+
+        for id, node in self.nodes.items():
+            if not node.is_valid():
+                violations.append(id)
+
+        return violations
+
+    def calculate_cost(self):
+        pass

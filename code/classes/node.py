@@ -7,3 +7,13 @@ class Node():
 
     def add_neighbour(self, node):
         self.neighbours[node.id] = node
+
+    def is_valid(self):
+        for neighbour in self.neighbours.values():
+            if neighbour.value == self.value:
+                return False
+
+        return True
+
+    def set_value(self, value):
+        self.value = value
