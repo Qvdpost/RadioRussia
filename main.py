@@ -5,7 +5,7 @@ from code.visualisation import visualise as vis
 if __name__ == '__main__':
     test_graph = graph.Graph('data/US/states.csv', 'data/US/neighbours.csv')
 
-    possibilities = ['red', 'green', 'blue', 'yellow']
+    possibilities = ['red', 'green', 'blue', 'yellow', 'magenta']
 
     randomize.random_reassignment(test_graph, possibilities)
 

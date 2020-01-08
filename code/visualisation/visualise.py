@@ -1,5 +1,5 @@
 from bokeh.io import output_file, show
-from bokeh.models import GeoJSONDataSource
+from bokeh.models import GeoJSONDataSource, HoverTool
 from bokeh.plotting import figure
 import json
 
@@ -18,7 +18,13 @@ def visualise(graph, geo_file):
 
     geo_source = GeoJSONDataSource(geojson=json.dumps(data))
 
-    p = figure(background_fill_color="lightgrey")
-    p.patches(xs='xs', ys='ys', fill_color='colour', source=geo_source)
+    TOOLTIPS = [
+        ("(x,y)", "($x, $y)"),
+        ("State", "@NAME"),
+        ("Transmitter", "@colour")
+    ]
+    p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
+    p.sizing_mode = 'scale_height'
+    p.patches(xs='xs', ys='ys', fill_color='colour', line_color='black', line_width=0.2, source=geo_source)
 
     show(p)
