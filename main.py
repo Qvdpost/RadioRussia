@@ -4,6 +4,10 @@ from code.classes import graph
 if __name__ == '__main__':
     test_graph = graph.Graph('data/US/states.csv', 'data/US/neighbours.csv')
 
-    randomize.random_assignment(test_graph, ['red', 'green', 'blue'])
+    possibilities = ['red', 'green', 'blue', 'yellow', 'cheese', 'strawberry']
 
-    print(test_graph.get_violations())
+    randomize.random_assignment(test_graph, possibilities)
+
+    violating_nodes = test_graph.get_violations()
+    print(len(violating_nodes))
+
