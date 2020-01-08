@@ -3,7 +3,7 @@ from .node import Node
 
 
 class Graph():
-    def __init__(self, nodes_file, neighbours_file):
+    def __init__(self, nodes_file, neighbours_file, geo_json=None):
         self.nodes = self.load_nodes(nodes_file)
         self.load_neighbours(neighbours_file)
 
