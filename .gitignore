@@ -1,6 +1,10 @@
 Pycharm
 .idea/
 
+# Pipenv files
+Pipfile
+Pipfile.lock
+
 .vs/
 .vscode/
 
