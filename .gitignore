@@ -4,6 +4,9 @@ Pycharm
 .vs/
 .vscode/
 
+# Bokeh visualisations
+main.html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

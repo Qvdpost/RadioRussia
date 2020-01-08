@@ -5,9 +5,9 @@ from code.visualisation import visualise as vis
 if __name__ == '__main__':
     test_graph = graph.Graph('data/US/states.csv', 'data/US/neighbours.csv')
 
-    possibilities = ['red', 'green', 'blue', 'yellow', 'cheese', 'strawberry']
+    possibilities = ['red', 'green', 'blue', 'yellow']
 
-    randomize.random_assignment(test_graph, possibilities)
+    randomize.random_reassignment(test_graph, possibilities)
 
     violating_nodes = test_graph.get_violations()
     print(len(violating_nodes))
