@@ -9,6 +9,13 @@ class Node():
         self.neighbours[node.id] = node
 
     def is_valid(self):
+        """
+        Returns whether the node is valid. A node is valid when there are no
+        neighbours with the same value, and it's value is not None.
+        """
+        if self.value == None:
+            return False
+
         for neighbour in self.neighbours.values():
             if neighbour.value == self.value:
                 return False
@@ -18,5 +25,11 @@ class Node():
     def set_value(self, value):
         self.value = value
 
+    def get_value(self):
+        return self.value
+
     def __repr__(self):
+        """
+        Make sure that the object is printed properly if it is in a list/dict.
+        """
         return self.id

@@ -15,4 +15,3 @@ if __name__ == '__main__':
     print(test_graph.get_violations())
 
     vis.visualise(test_graph, "data/US/gz_2010_us_040_00_500k.json")
-
