@@ -1,14 +1,15 @@
 from code.algorithms import randomize
-from code.classes import graph
+from code.classes import graph, transmitters
 from code.visualisation import visualise as vis
 
 if __name__ == '__main__':
     # Create a graph from our data
     test_graph = graph.Graph('data/US/states.csv', 'data/US/neighbours.csv')
 
-    possibilities = ['red', 'green', 'blue', 'yellow', 'magenta']
+    # Create the transmitter cost schemes
+    transmitters = transmitters.CostScheme('data/transmitters.csv')
 
-    randomize.random_reassignment(test_graph, possibilities)
+    randomize.random_reassignment(test_graph, transmitters.get_scheme(1))
 
     violating_nodes = test_graph.get_violations()
     print(len(violating_nodes))
