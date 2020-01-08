@@ -3,6 +3,7 @@ from code.classes import graph
 from code.visualisation import visualise as vis
 
 if __name__ == '__main__':
+    # Create a graph from our data
     test_graph = graph.Graph('data/US/states.csv', 'data/US/neighbours.csv')
 
     possibilities = ['red', 'green', 'blue', 'yellow', 'magenta']
