@@ -5,6 +5,10 @@ import random
 
 
 class HillClimber:
+    """
+    The HillClimber class that changes a random node in the graph to a random valid value. Each improvement or
+    equivalent solution is kept for the next iteration.
+    """
     def __init__(self, graph, transmitters):
         if not graph.is_solution():
             raise Exception("Requires a complete solution.")
@@ -27,5 +31,6 @@ class HillClimber:
             new_value = self.graph.calculate_value()
             if new_value <= value:
                 value = new_value
+                # Update the input graph with the best found graph.
                 self.graph = new_graph
                 print(iteration, value)
