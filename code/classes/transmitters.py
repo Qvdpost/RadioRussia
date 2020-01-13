@@ -47,3 +47,9 @@ class Transmitter:
         self.name = name
         self.value = value
         self.colour = colour
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        return self.__class__ == other.__class__ and self.name == other.name

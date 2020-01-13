@@ -8,6 +8,19 @@ class Node():
     def add_neighbour(self, node):
         self.neighbours[node.id] = node
 
+    def get_possibilities(self, options):
+        """
+        Returns a list of all available values that can be assigned to this node,
+        based on assigned values of neighbours.
+        """
+        available_options = set(options)
+
+        unavailable_options = set()
+        for neighbour in self.neighbours.values():
+            unavailable_options.add(neighbour.get_value())
+
+        return list(available_options - unavailable_options)
+
     def is_valid(self):
         """
         Returns whether the node is valid. A node is valid when there are no
@@ -27,6 +40,9 @@ class Node():
 
     def get_value(self):
         return self.value
+
+    def has_value(self):
+        return self.value is not None
 
     def __repr__(self):
         """

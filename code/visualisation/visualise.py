@@ -25,12 +25,18 @@ def visualise(graph, geo_file):
 
     # Get the colour of the states from the corresponding nodes
     for feature in data['features']:
-        feature['properties']['colour'] = states[
-            feature['properties']['NAME'].lower().replace(' ', '')].get_value().colour.get_web()
-        feature['properties']['cost'] = states[
-            feature['properties']['NAME'].lower().replace(' ', '')].get_value().value
-        feature['properties']['transmitter'] = states[
-            feature['properties']['NAME'].lower().replace(' ', '')].get_value().name
+        if states[feature['properties']['NAME'].lower().replace(' ', '')].get_value() is not None:
+            feature['properties']['colour'] = states[
+                feature['properties']['NAME'].lower().replace(' ', '')].get_value().colour.get_web()
+
+            feature['properties']['cost'] = states[
+                feature['properties']['NAME'].lower().replace(' ', '')].get_value().value
+            feature['properties']['transmitter'] = states[
+                feature['properties']['NAME'].lower().replace(' ', '')].get_value().name
+        else:
+            feature['properties']['colour'] = 'grey'
+            feature['properties']['cost'] = 0
+            feature['properties']['transmitter'] = "None"
 
     geo_source = GeoJSONDataSource(geojson=json.dumps(data))
 

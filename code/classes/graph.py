@@ -57,3 +57,33 @@ class Graph():
                 violations.append(id)
 
         return violations
+
+    def is_solution(self):
+        """
+        Returns True if each node in the graph is assigned a value. False otherwise.
+        """
+        for node in self.nodes.values():
+            if not node.has_value():
+                return False
+
+        return True
+
+    def calculate_value(self):
+        """
+        Returns the sum of the values of all nodes.
+        """
+        value = 0
+        for node in self.nodes.values():
+            value += node.get_value().value
+
+        return value
+
+    def get_empty_node(self):
+        """
+        Returns the first empty node.
+        """
+        for node_id, node in self.nodes.items():
+            if not node.has_value():
+                return node
+
+        return None

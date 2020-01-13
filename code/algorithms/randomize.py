@@ -32,3 +32,4 @@ def random_reassignment(graph, possibilities):
         random_reconfigure_nodes(graph, violating_nodes, possibilities)
 
         violating_nodes = graph.get_violations()
+
