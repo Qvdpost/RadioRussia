@@ -1,7 +1,10 @@
-def greedy(graph, transmitters):
+def greedy(graph, possibilities):
+    """
+    Greedily assigns the lowest costing transmitters to the nodes of the graph.
+    """
     for node in graph.nodes.values():
-        possibilities = node.get_possibilities(transmitters)
+        node_possibilities = node.get_possibilities(possibilities)
 
-        possibilities.sort(key=lambda x: x.value)
+        node_possibilities.sort(key=lambda x: x.value)
 
-        node.set_value(possibilities[0])
+        node.set_value(node_possibilities[0])
