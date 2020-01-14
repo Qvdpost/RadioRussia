@@ -82,7 +82,7 @@ class Graph():
         """
         Returns the first empty node.
         """
-        for node_id, node in self.nodes.items():
+        for node in self.nodes.values():
             if not node.has_value():
                 return node
 
