@@ -11,20 +11,24 @@ class HillClimber:
     """
     def __init__(self, graph, transmitters):
         if not graph.is_solution():
-            raise Exception("Requires a complete solution.")
+            raise Exception("HillClimber requires a complete solution.")
 
         self.graph = graph
         self.value = graph.calculate_value()
 
         self.transmitters = transmitters
 
-    def mutate_graph(self, new_graph):
-        """
-        Changes the value of a random node with a random valid value.
-        """
+    def mutate_single_node(self, new_graph):
         random_node = random.choice(list(new_graph.nodes.values()))
         available_transmitters = random_node.get_possibilities(self.transmitters)
         random_reconfigure_node(new_graph, random_node, available_transmitters)
+
+    def mutate_graph(self, new_graph, number_of_nodes=1):
+        """
+        Changes the value of a random node with a random valid value.
+        """
+        for _ in range(number_of_nodes):
+            self.mutate_single_node(new_graph)
 
     def check_solution(self, new_graph):
         """

@@ -74,7 +74,7 @@ class Graph():
         """
         value = 0
         for node in self.nodes.values():
-            value += node.get_value().value
+            value += node.get_value().value if node.get_value() != None else 0
 
         return value
 
