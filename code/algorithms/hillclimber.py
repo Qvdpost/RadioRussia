@@ -13,7 +13,7 @@ class HillClimber:
         if not graph.is_solution():
             raise Exception("HillClimber requires a complete solution.")
 
-        self.graph = graph
+        self.graph = copy.deepcopy(graph)
         self.value = graph.calculate_value()
 
         self.transmitters = transmitters
@@ -42,12 +42,13 @@ class HillClimber:
             self.graph = new_graph
             self.value = new_value
 
-    def run(self, iterations):
+    def run(self, iterations, verbose=False):
         """
         Runs the hillclimber algorithm for a specific amount of iterations.
         """
         for iteration in range(iterations):
-            print(f'Iteration {iteration}/{iterations}, current value: {self.value}')
+            # Nice trick to only print if variable is set to True
+            print(f'Iteration {iteration}/{iterations}, current value: {self.value}') if verbose else None
 
             # Create a copy of the graph to simulate the change
             new_graph = copy.deepcopy(self.graph)

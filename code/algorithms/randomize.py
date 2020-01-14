@@ -1,4 +1,5 @@
 import random
+import copy
 
 
 def random_assignment(graph, possibilities):
@@ -30,12 +31,15 @@ def random_reassignment(graph, possibilities):
 
     CAUTION: may run indefinitely.
     """
+    new_graph = copy.deepcopy(graph)
 
-    random_assignment(graph, possibilities)
+    random_assignment(new_graph, possibilities)
 
-    violating_nodes = graph.get_violations()
+    violating_nodes = new_graph.get_violations()
 
     while len(violating_nodes):
-        random_reconfigure_nodes(graph, violating_nodes, possibilities)
+        random_reconfigure_nodes(new_graph, violating_nodes, possibilities)
 
-        violating_nodes = graph.get_violations()
+        violating_nodes = new_graph.get_violations()
+
+    return new_graph

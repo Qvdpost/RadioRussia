@@ -1,7 +1,9 @@
+import copy
+
 
 class Greedy:
     def __init__(self, graph, transmitters):
-        self.graph = graph
+        self.graph = copy.deepcopy(graph)
         self.transmitters = transmitters
 
     def run(self):
@@ -13,7 +15,7 @@ class Greedy:
             node_possibilities = node.get_possibilities(self.transmitters)
 
             # Sort them by value in ascending order.
-            node_possibilities.sort(key=lambda node: node.get_value())
+            node_possibilities.sort(key=lambda transmitter: transmitter.value)
 
             # Assign the lowest value possibility to the node.
             node.set_value(node_possibilities[0])

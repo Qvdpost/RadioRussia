@@ -6,7 +6,7 @@ class DepthFirst:
     A Depth First algorithm that builds a stack of graphs with a unique assignment of nodes for each instance.
     """
     def __init__(self, graph, transmitters):
-        self.graph = graph
+        self.graph = copy.deepcopy(graph)
         self.transmitters = transmitters
 
         self.states = [copy.deepcopy(self.graph)]
@@ -27,17 +27,17 @@ class DepthFirst:
             new_graph.nodes[node.id].set_value(value)
             self.states.append(new_graph)
 
-    def check_solution(self, new_graph):
-        """
-        Checks and accepts better solutions than the current solution.
-        """
-        new_value = new_graph.calculate_value()
-        old_value = self.best_value
-
-        # We are looking for maps that cost less!
-        if new_value <= old_value:
-            self.best_solution = new_graph
-            self.value = new_value
+    # def check_solution(self, new_graph):
+    #     """
+    #     Checks and accepts better solutions than the current solution.
+    #     """
+    #     new_value = new_graph.calculate_value()
+    #     old_value = self.best_value
+    #
+    #     # We are looking for maps that cost less!
+    #     if new_value <= old_value:
+    #         self.best_solution = new_graph
+    #         self.best_value = new_value
 
     def run(self):
         # Initialise the stack of graphs.
@@ -48,10 +48,13 @@ class DepthFirst:
 
             # Retrieve the next empty node.
             node = new_graph.get_empty_node()
+
             if node is not None:
                 self.build_children(new_graph, node)
             else:
-                self.check_solution(new_graph)
+                # Stop if we find a solution
+                self.graph = new_graph
+                return
 
         # Update the input graph with the best result found.
         self.graph = self.best_solution
