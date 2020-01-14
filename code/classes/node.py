@@ -26,7 +26,7 @@ class Node():
         Returns whether the node is valid. A node is valid when there are no
         neighbours with the same value, and it's value is not None.
         """
-        if self.value == None:
+        if self.has_value():
             return False
 
         for neighbour in self.neighbours.values():

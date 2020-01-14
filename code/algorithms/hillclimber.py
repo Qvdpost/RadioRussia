@@ -14,23 +14,39 @@ class HillClimber:
             raise Exception("Requires a complete solution.")
 
         self.graph = graph
+        self.value = graph.calculate_value()
+
         self.transmitters = transmitters
 
+    def mutate_random_node(self, new_graph):
+        """
+        Changes the value of a random node with a random valid value.
+        """
+        random_node = random.choice(list(new_graph.nodes.keys()))
+        available_transmitters = new_graph.nodes[random_node].get_possibilities(self.transmitters)
+        random_reconfigure_nodes(new_graph, [random_node], available_transmitters)
+
+    def check_solution(self, new_graph):
+        """
+        Checks and accepts better solutions than the current solution.
+        """
+        new_value = new_graph.calculate_value()
+        old_value = self.value
+
+        if new_value >= old_value:
+            self.graph = new_graph
+            self.value = new_value
+
     def run(self, iterations):
-        value = self.graph.calculate_value()
+        """
+        Runs the hillclimber algorithm for a specific amount of iterations.
+        """
         for iteration in range(iterations):
-            # Create a copy of the graph to simulate the change.
+            # Create a copy of the graph to simulate the change
             new_graph = copy.deepcopy(self.graph)
 
-            # Change the value of a random node with a random valid value.
-            random_node = random.choice(list(self.graph.nodes.keys()))
-            available_transmitters = self.graph.nodes[random_node].get_possibilities(self.transmitters)
-            random_reconfigure_nodes(self.graph, [random_node], available_transmitters)
+            # Mutate the graph
+            self.mutate_random_node(new_graph)
 
-            # Check and accept a better solution.
-            new_value = self.graph.calculate_value()
-            if new_value <= value:
-                value = new_value
-                # Update the input graph with the best found graph.
-                self.graph = new_graph
-                print(iteration, value)
+            # Accept it if it is better
+            self.check_solution(new_graph)
