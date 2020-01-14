@@ -52,9 +52,9 @@ class Graph():
         """
         violations = []
 
-        for id, node in self.nodes.items():
+        for node in self.nodes.values():
             if not node.is_valid():
-                violations.append(id)
+                violations.append(node)
 
         return violations
 

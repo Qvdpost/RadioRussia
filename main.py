@@ -22,8 +22,6 @@ if __name__ == '__main__':
     # print(test_graph.get_violations())
     # print(test_graph.calculate_value())
 
-    print(transmitters.get_scheme(1)[2] == transmitters.get_scheme(1)[2])
-
     # Hill Climber
     print("Starting random assignment...")
     randomize.random_reassignment(test_graph, transmitters.get_scheme(1))

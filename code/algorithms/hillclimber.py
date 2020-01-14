@@ -1,6 +1,6 @@
 import copy
 
-from .randomize import random_reconfigure_nodes
+from .randomize import random_reconfigure_node
 import random
 
 
@@ -22,9 +22,9 @@ class HillClimber:
         """
         Changes the value of a random node with a random valid value.
         """
-        random_node = random.choice(list(new_graph.nodes.keys()))
-        available_transmitters = new_graph.nodes[random_node].get_possibilities(self.transmitters)
-        random_reconfigure_nodes(new_graph, [random_node], available_transmitters)
+        random_node = random.choice(list(new_graph.nodes.values()))
+        available_transmitters = random_node.get_possibilities(self.transmitters)
+        random_reconfigure_node(new_graph, random_node, available_transmitters)
 
     def check_solution(self, new_graph):
         """
@@ -33,7 +33,7 @@ class HillClimber:
         new_value = new_graph.calculate_value()
         old_value = self.value
 
-        # We are looking for better maps!
+        # We are looking for maps that cost less!
         if new_value <= old_value:
             self.graph = new_graph
             self.value = new_value
