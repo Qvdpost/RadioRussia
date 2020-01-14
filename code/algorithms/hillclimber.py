@@ -18,7 +18,7 @@ class HillClimber:
 
         self.transmitters = transmitters
 
-    def mutate_random_node(self, new_graph):
+    def mutate_graph(self, new_graph):
         """
         Changes the value of a random node with a random valid value.
         """
@@ -33,7 +33,8 @@ class HillClimber:
         new_value = new_graph.calculate_value()
         old_value = self.value
 
-        if new_value >= old_value:
+        # We are looking for better maps!
+        if new_value <= old_value:
             self.graph = new_graph
             self.value = new_value
 
@@ -42,11 +43,12 @@ class HillClimber:
         Runs the hillclimber algorithm for a specific amount of iterations.
         """
         for iteration in range(iterations):
+            print(f'Iteration {iteration}/{iterations}, current value: {self.value}')
+
             # Create a copy of the graph to simulate the change
             new_graph = copy.deepcopy(self.graph)
 
-            # Mutate the graph
-            self.mutate_random_node(new_graph)
+            self.mutate_graph(new_graph)
 
             # Accept it if it is better
             self.check_solution(new_graph)

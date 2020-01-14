@@ -22,18 +22,25 @@ if __name__ == '__main__':
     # print(test_graph.get_violations())
     # print(test_graph.calculate_value())
 
+    print(transmitters.get_scheme(1)[2] == transmitters.get_scheme(1)[2])
+
     # Hill Climber
-    # randomize.random_reassignment(test_graph, transmitters.get_scheme(1))
-    # climber = hc.HillClimber(test_graph, transmitters.get_scheme(1))
-    # climber.run(20000)
+    print("Starting random assignment...")
+    randomize.random_reassignment(test_graph, transmitters.get_scheme(1))
+
+    print("Setting up hillclimber...")
+    climber = hc.HillClimber(test_graph, transmitters.get_scheme(1))
+
+    print("Running hillclimber...")
+    climber.run(20000)
 
     # Depth First
     # depth = df.DepthFirst(test_graph, transmitters.get_scheme(1)[0:4])
     # depth.run()
 
     # Greedy
-    greed = greedy.greedy(test_graph, transmitters.get_scheme((1)))
-
-    print(test_graph.calculate_value())
-    print(test_graph.get_violations())
-    vis.visualise(test_graph, "data/US/gz_2010_us_040_00_500k.json")
+    # greed = greedy.greedy(test_graph, transmitters.get_scheme((1)))
+    #
+    # print(test_graph.calculate_value())
+    # print(test_graph.get_violations())
+    # vis.visualise(test_graph, "data/US/gz_2010_us_040_00_500k.json")
