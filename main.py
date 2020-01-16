@@ -3,12 +3,15 @@ from code.classes import graph, transmitters
 from code.algorithms import randomize
 from code.algorithms import greedy as gr
 from code.algorithms import depth_first as df
+from code.algorithms import breadth_first as bf
 from code.algorithms import hillclimber as hc
 from code.algorithms import simulatedannealing as sa
 
 from code.visualisation import visualise as vis
 
 if __name__ == '__main__':
+    # If you want to test depth- and especially breadth-first it would probably
+    # be wise to use the data/Test directory
     source_folder = 'data/US'
 
     # Create a graph from our data
@@ -28,10 +31,17 @@ if __name__ == '__main__':
     print(f"Value of the configuration after Greedy: {greedy.graph.calculate_value()}")
 
     # --------------------------- Depth First ----------------------------------
+
     # depth = df.DepthFirst(test_graph, transmitters.get_scheme(1)[0:4])
     # depth.run()
     #
-    # print(f"Value of the configuration after DepthFirst: {depth.graph.calculate_value()}")
+    # print(f"Value of the configuration after Depth First: {depth.graph.calculate_value()}")
+
+    # --------------------------- Breadth First --------------------------------
+    # breadth = bf.BreadthFirst(test_graph, transmitters.get_scheme(1)[0:4])
+    # breadth.run()
+    #
+    # print(f"Value of the configuration after Breadth First: {breadth.graph.calculate_value()}")
 
     # --------------------------- Hill Climber ---------------------------------
     print("Setting up Hill Climber...")
@@ -43,10 +53,11 @@ if __name__ == '__main__':
     print(f"Value of the configuration after Hill Climber: {climber.graph.calculate_value()}")
 
     # --------------------------- Simulated Annealing --------------------------
-    # Het is lastig om een goede starttemperatuur te vinden. Een goede vuistregel is de maximale
-    # scoreverandering die plaats kan vinden. In ons geval is dat 19, want we veranderen
-    # iedere keer maar 1 transmitter, en het waardeverschil tussen de duurste en de goedkoopste
-    # in column 1 is 19.
+    # It is very difficult to find a good starting temperature for SA. A rule to
+    # help you find one is to use the maximum change in score that could happen
+    # when mutating your state. In our case, this is 19, because the transmitter
+    # maximum difference in score between the most expensive and the cheapest
+    # transmitter is 19.
 
     print("Setting up Simulated Annealing...")
     simanneal = sa.SimulatedAnnealing(random_graph, transmitters.get_scheme(1), temperature=19)
