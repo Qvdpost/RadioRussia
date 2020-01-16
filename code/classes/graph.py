@@ -1,4 +1,5 @@
 import csv
+
 from .node import Node
 
 
@@ -11,7 +12,6 @@ class Graph():
         """
         Load all the nodes into the graph.
         """
-
         nodes = {}
         with open(node_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
@@ -25,7 +25,6 @@ class Graph():
         """
         Load all the neighbours into the loaded nodes.
         """
-
         with open(neighbour_file, 'r') as in_file:
             reader = csv.DictReader(in_file)
 

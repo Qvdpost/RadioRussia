@@ -1,6 +1,6 @@
 import csv
-from colour import Color
 
+from colour import Color
 from collections import defaultdict
 
 

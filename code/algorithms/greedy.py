@@ -2,6 +2,9 @@ import copy
 
 
 class Greedy:
+    """
+    The Greedy class that assigns the best possible value to each node one by one.
+    """
     def __init__(self, graph, transmitters):
         self.graph = copy.deepcopy(graph)
         self.transmitters = transmitters
@@ -24,7 +27,7 @@ class Greedy:
         while nodes or not node_possibilities:
             node = self.get_next_node(nodes)
 
-            # Retreive all valid possible values for a node.
+            # Retrieve all valid possible values for a node.
             node_possibilities = node.get_possibilities(self.transmitters)
 
             # Sort them by value in ascending order.
