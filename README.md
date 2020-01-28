@@ -32,11 +32,11 @@ Het bestand geeft een voorbeeld voor gebruik van de verschillende functies.
 
 De hierop volgende lijst beschrijft de belangrijkste mappen en files in het project, en waar je ze kan vinden:
 
-- **/code**: bevat alle code van dit project.
-  - **/code/algorithms**: bevat de code voor algoritmes.
-  - **/code/classes**: bevat de drie benodigde classes voor deze case.
-  - **/code/visualisation**: bevat de bokeh code voor de visualisatie.
-- **/data**: bevat de verschillende databestanden die nodig zijn om de graaf te vullen en te visualiseren.
+- **/code**: bevat alle code van dit project
+  - **/code/algorithms**: bevat de code voor algoritmes
+  - **/code/classes**: bevat de drie benodigde classes voor deze case
+  - **/code/visualisation**: bevat de bokeh code voor de visualisatie
+- **/data**: bevat de verschillende databestanden die nodig zijn om de graaf te vullen en te visualiseren
 
 ## Auteurs
 - Quinten van der Post
