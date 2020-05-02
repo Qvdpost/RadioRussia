@@ -12,7 +12,8 @@ from code.visualisation import visualise as vis
 if __name__ == "__main__":
     # Watch out with large datafiles when running depth- and especially
     # breadth-first, since they can be really slow.
-    data_folder = "russia"
+    # NOTE: Turn on fast_plot at visualization when selecting Russia!
+    data_folder = "usa"
 
     # Create a graph from our data
     test_graph = graph.Graph(f"data/{data_folder}/{data_folder}_regions.csv")
@@ -76,5 +77,11 @@ if __name__ == "__main__":
           f"{simanneal.graph.calculate_value()}")
 
     # --------------------------- Visualisation --------------------------------
+    # Turn fast_plot on for a matplotlib plot, which will be faster than Bokeh.
+    # Bokeh will also be too slow for plotting Russia, so turn on when Russia is
+    # selected as input!
+    fast_plot = False
+
     vis.visualise(simanneal.graph,
-                  f"data/{data_folder}/{data_folder}_regions.shp")
+                  f"data/{data_folder}/{data_folder}_regions.shp",
+                  fast_plot=fast_plot)

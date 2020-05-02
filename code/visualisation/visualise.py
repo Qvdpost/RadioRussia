@@ -2,9 +2,10 @@ from bokeh.io import show
 from bokeh.models import GeoJSONDataSource
 from bokeh.plotting import figure
 import geopandas as gdp
+from matplotlib import pyplot as plt
 
 
-def visualise(graph, geo_file):
+def visualise(graph, geo_file, fast_plot=False):
     """
     Visualisation code that uses bokeh and geometry data from a JSON file
     to represent a coloured graph.
@@ -26,20 +27,24 @@ def visualise(graph, geo_file):
     geo_df["colour"] = colour
     geo_df["transmitter"] = transmitter
 
-    # Transform the GeoDataFrame to GeoJSONDataSource.
-    geo_source = GeoJSONDataSource(geojson=geo_df.to_json())
+    if fast_plot:
+        geo_df.plot(color=geo_df["colour"])
+        plt.show()
+    else:
+        # Transform the GeoDataFrame to GeoJSONDataSource.
+        geo_source = GeoJSONDataSource(geojson=geo_df.to_json())
 
-    # Set the Bokeh tooltips.
-    tooltips = [
-        ("(x,y)", "($x, $y)"),
-        ("Region", "@name"),
-        ("Transmitter", "@transmitter"),
-        ("Cost", "@cost")
-    ]
+        # Set the Bokeh tooltips.
+        tooltips = [
+            ("(x,y)", "($x, $y)"),
+            ("Region", "@name"),
+            ("Transmitter", "@transmitter"),
+            ("Cost", "@cost")
+        ]
 
-    # Make Bokeh plot.
-    p = figure(background_fill_color="lightgrey", tooltips=tooltips)
-    p.sizing_mode = 'scale_height'
-    p.patches(xs='xs', ys='ys', fill_color='colour', line_color='black',
-              line_width=0.2, source=geo_source)
-    show(p)
+        # Make Bokeh plot.
+        p = figure(background_fill_color="lightgrey", tooltips=tooltips)
+        p.sizing_mode = 'scale_height'
+        p.patches(xs='xs', ys='ys', fill_color='colour', line_color='black',
+                  line_width=0.2, source=geo_source)
+        show(p)
