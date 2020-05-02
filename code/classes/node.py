@@ -10,8 +10,8 @@ class Node():
 
     def get_possibilities(self, options):
         """
-        Returns a list of all available values that can be assigned to this node,
-        based on assigned values of neighbours.
+        Returns a list of all available values that can be assigned to this
+        node, based on assigned values of neighbours.
         """
         available_options = set(options)
 
