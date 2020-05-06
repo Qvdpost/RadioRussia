@@ -1,9 +1,0 @@
-state,neighbours
-CA,"[NV, OR]"
-ID,"[WA, OR, NV, UT, WY, MT]"
-MT,"[ID, WY]"
-NV,"[UT, ID, OR, CA]"
-OR,"[CA, NV, ID, WA]"
-UT,"[WY, ID, NV]"
-WA,"[OR, ID]"
-WY,"[MT, ID, UT]"

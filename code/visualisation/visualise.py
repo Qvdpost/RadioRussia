@@ -1,55 +1,50 @@
-import json
-
 from bokeh.io import show
 from bokeh.models import GeoJSONDataSource
 from bokeh.plotting import figure
+import geopandas as gdp
+from matplotlib import pyplot as plt
 
 
-def visualise(graph, geo_file):
+def visualise(graph, geo_file, fast_plot=False):
     """
     Visualisation code that uses bokeh and geometry data from a JSON file
     to represent a coloured graph.
     """
+    geo_df = gdp.read_file(geo_file)
 
-    with open(geo_file, 'r') as geo_file:
-        data = json.load(geo_file)
+    # Get the nodes of the regions in order of uid.
+    regions = [node for node in graph.nodes.values()]
+    name = [node.id for node in regions]
+    cost = [node.get_value().value if node is not None else 0
+            for node in regions]
+    colour = [node.get_value().colour.get_web() if node is not None else "grey"
+              for node in regions]
+    transmitter = [node.get_value().name if node is not None else "None"
+                   for node in regions]
 
-    # Dict comprehension that creates a dictionary with a lowercase name for the
-    # node if it has at least one neighbour
-    states = {node.name.lower(): node for node in graph.nodes.values() if len(node.neighbours) != 0}
+    geo_df["name"] = name
+    geo_df["cost"] = cost
+    geo_df["colour"] = colour
+    geo_df["transmitter"] = transmitter
 
-    # Take the features of the states that have at least one neighbour
-    for i in range(len(data['features'])):
-        data['features'] = [feature for feature in data['features'] if
-                            feature['properties']['NAME'].lower().replace(' ', '') in states]
+    if fast_plot:
+        geo_df.plot(color=geo_df["colour"])
+        plt.show()
+    else:
+        # Transform the GeoDataFrame to GeoJSONDataSource.
+        geo_source = GeoJSONDataSource(geojson=geo_df.to_json())
 
-    # Get the colour of the states from the corresponding nodes
-    for feature in data['features']:
-        if states[feature['properties']['NAME'].lower().replace(' ', '')].get_value() is not None:
-            feature['properties']['colour'] = states[
-                feature['properties']['NAME'].lower().replace(' ', '')].get_value().colour.get_web()
+        # Set the Bokeh tooltips.
+        tooltips = [
+            ("(x,y)", "($x, $y)"),
+            ("Region", "@name"),
+            ("Transmitter", "@transmitter"),
+            ("Cost", "@cost")
+        ]
 
-            feature['properties']['cost'] = states[
-                feature['properties']['NAME'].lower().replace(' ', '')].get_value().value
-            feature['properties']['transmitter'] = states[
-                feature['properties']['NAME'].lower().replace(' ', '')].get_value().name
-        else:
-            feature['properties']['colour'] = 'grey'
-            feature['properties']['cost'] = 0
-            feature['properties']['transmitter'] = "None"
-
-    geo_source = GeoJSONDataSource(geojson=json.dumps(data))
-
-    # Set the bokeh tooltips
-    TOOLTIPS = [
-        ("(x,y)", "($x, $y)"),
-        ("State", "@NAME"),
-        ("Transmitter", "@transmitter"),
-        ("Cost", "@cost")
-    ]
-
-    p = figure(background_fill_color="lightgrey", tooltips=TOOLTIPS)
-    p.sizing_mode = 'scale_height'
-    p.patches(xs='xs', ys='ys', fill_color='colour', line_color='black', line_width=0.2, source=geo_source)
-
-    show(p)
+        # Make Bokeh plot.
+        p = figure(background_fill_color="lightgrey", tooltips=tooltips)
+        p.sizing_mode = 'scale_height'
+        p.patches(xs='xs', ys='ys', fill_color='colour', line_color='black',
+                  line_width=0.2, source=geo_source)
+        show(p)
